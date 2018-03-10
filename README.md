@@ -1,6 +1,6 @@
 # PHP-MeCab を使うサンプル
 
-PHP の MeCab モジュールが使える場合はモジュール版 PHP-MeCab を利用し、モジュールが使えない場合で、コマンド・ラインから `$ mecab` が利用できる場合は、`exec()`で代用します。
+[PHP-MeCab](https://github.com/rsky/php-mecab) などの PHP の MeCab モジュールが使える場合はモジュールを利用し、モジュールが使えない場合でコマンド・ラインから `$ mecab` が利用できる場合は、`exec()`で代用します。
 
 ## 使い方
 
