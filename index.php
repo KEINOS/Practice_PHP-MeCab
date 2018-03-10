@@ -23,9 +23,9 @@ EOS;
 
 /* Main Program ----------------------------------------------------- */
 
-//$path_dic_mecab = '/usr/local/lib/mecab/dic/ipadic/sys.dic';
-//$path_dic_mecab = '/usr/local/lib/mecab/dic/mecab-ipadic-neologd/sys.dic';
-$path_dic_mecab = '/PATH/TO/YOUR/DICTIONARY/FILE.dic';
+//$path_dic_mecab = '/usr/local/lib/mecab/dic/ipadic';
+//$path_dic_mecab = '/usr/local/lib/mecab/dic/mecab-ipadic-neologd';
+$path_dic_mecab = '/PATH/TO/YOUR/DICTIONARY/';
 
 set_dictionary($path_dic_mecab);
 
@@ -34,7 +34,7 @@ print_r($result);
 
 die;
 
-/* ------------------------------------------------------------------ */
+/* Functions -------------------------------------------------------- */
 
 function get_path_dic_mecab()
 {
@@ -44,6 +44,33 @@ function get_path_dic_mecab()
 function get_mode_mecab()
 {
     return (defined('USE_MECAB_MODE')) ? USE_MECAB_MODE : UNAVAILABLE;
+}
+
+function initialize_mecab()
+{
+    if (! is_mecab_available()) {
+        die('Error: No MeCab found. Please install MeCab.' . PHP_EOL);
+    }
+
+    switch (get_path_dic_mecab()) {
+        case UNAVAILABLE:
+            die(
+                'Error: No dictionary set. ' .
+                'Use \'set_dictionary()\' before use.' .
+                PHP_EOL
+            );
+            break;
+        case FILE_NOT_FOND:
+            die(
+                'Error: Dictinonary not found. ' .
+                'Set the proper MeCab dictionary.' .
+                PHP_EOL
+            );
+            break;
+        default:
+            //
+            break;
+    }
 }
 
 function is_mecab_available()
@@ -78,35 +105,16 @@ function is_mecab_available()
 
 function parse_mecab(string $string)
 {
-    if (! is_mecab_available()) {
-        die('Error: No MeCab found. Please install MeCab.' . PHP_EOL);
-    }
+    initialize_mecab();
 
-    switch (get_path_dic_mecab()) {
-        case UNAVAILABLE:
-            die(
-                'Error: No dictionary set. ' .
-                'Use \'set_dictionary()\' before use.' .
-                PHP_EOL
-            );
-            break;
-        case FILE_NOT_FOND:
-            die(
-                'Error: Dictinonary not found. ' .
-                'Set the proper MeCab dictionary.' .
-                PHP_EOL
-            );
-            break;
-        default:
-            //
-            break;
-    }
+    $mode_mecab = get_mode_mecab();
 
-    if (USE_MECAB_DL == get_mode_mecab()) {
+    if (USE_MECAB_DL == $mode_mecab) {
         $parsed = parse_mecab_dl($string);
-    }
-    if (USE_MECAB_OS == get_mode_mecab()) {
+    } elseif (USE_MECAB_OS == get_mode_mecab()) {
         $parsed = parse_mecab_os($string);
+    } else {
+        die('Error: Can not determine MeCab mode.' . PHP_EOL);
     }
 
     $lines  = explode(PHP_EOL, $parsed);
