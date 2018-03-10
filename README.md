@@ -9,7 +9,7 @@ PHP の MeCab モジュールが使える場合はモジュール版 PHP-MeCab �
 
 ## サンプルの使い方
 
-1. PHP ファイルに `index.php` のソースをコピペします。
+1. PHP ファイルに [`index.php` のソース](https://github.com/KEINOS/Practice_PHP-MeCab/blob/master/index.php)をコピペします。
 1. 使用する辞書ファイルのパスを `$path_dic_mecab` の値に設定し保存します。
 1. ファイルに実行パーミッション（'0755'など）があることを確認します。
 1. コマンド・ラインから `$ php index.php` を実行します。
