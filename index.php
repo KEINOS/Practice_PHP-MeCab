@@ -24,8 +24,8 @@ EOS;
 /* Main Program ----------------------------------------------------- */
 
 //$path_dic_mecab = '/usr/local/lib/mecab/dic/ipadic';
-//$path_dic_mecab = '/usr/local/lib/mecab/dic/mecab-ipadic-neologd';
-$path_dic_mecab = '/PATH/TO/YOUR/DICTIONARY/';
+$path_dic_mecab = '/usr/local/lib/mecab/dic/mecab-ipadic-neologd';
+//$path_dic_mecab = '/PATH/TO/YOUR/DICTIONARY/';
 
 set_dictionary($path_dic_mecab);
 
@@ -166,7 +166,7 @@ function parse_mecab_os(string $string)
 
 function set_dictionary($path)
 {
-    if (! file_exists($path)) {
+    if (! file_exists($path . DIRECTORY_SEPARATOR . 'sys.dic')) {
         $path = FILE_NOT_FOND;
     }
 
