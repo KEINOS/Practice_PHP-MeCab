@@ -24,8 +24,8 @@ EOS;
 /* Main Program ----------------------------------------------------- */
 
 //$path_dic_mecab = '/usr/local/lib/mecab/dic/ipadic';
-$path_dic_mecab = '/usr/local/lib/mecab/dic/mecab-ipadic-neologd';
-//$path_dic_mecab = '/PATH/TO/YOUR/DICTIONARY/';
+//$path_dic_mecab = '/usr/local/lib/mecab/dic/mecab-ipadic-neologd';
+$path_dic_mecab = '/PATH/TO/YOUR/DICTIONARY/';
 
 set_dictionary($path_dic_mecab);
 
